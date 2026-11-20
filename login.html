@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <title>NutriBio - Login</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#f9f9ff",
+            "surface-dim": "#cfdaf2",
+            "surface-bright": "#f9f9ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f0f3ff",
+            "surface-container": "#e7eeff",
+            "surface-container-high": "#dee8ff",
+            "surface-container-highest": "#d8e3fb",
+            "on-surface": "#111c2d",
+            "on-surface-variant": "#40493d",
+            "primary": "#0d631b",
+            "on-primary": "#ffffff",
+            "primary-container": "#2e7d32",
+            "on-primary-container": "#cbffc2",
+            "secondary": "#006a60",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#8cf5e4",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"]
+          },
+          borderRadius: {
+            DEFAULT: "1rem",
+            lg: "1.5rem",
+            xl: "2rem",
+            full: "9999px"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background: linear-gradient(180deg, #f0f4ee 0%, #f9f9ff 100%);
+      min-height: 100dvh;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .custom-shadow {
+      box-shadow: 0 10px 30px -5px rgba(13, 99, 27, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-center items-center p-4 sm:p-6 text-on-surface">
+
+  <!-- Main Container -->
+  <main class="w-full max-w-md flex flex-col gap-5 my-auto">
+    
+    <!-- Brand Header -->
+    <div class="flex flex-col items-center text-center gap-2">
+      <div class="w-16 h-16 rounded-2xl bg-surface-container-lowest p-2 shadow-sm flex items-center justify-center border border-surface-container">
+        <img alt="NutriBio Logo" class="h-10 w-10 object-contain" src="./assets/logo.svg"/>
+      </div>
+      <h1 class="text-2xl font-bold tracking-tight text-on-surface flex items-center gap-1.5 mt-1">
+        NutriBio
+        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary uppercase tracking-wider">Diário</span>
+      </h1>
+      <p class="text-sm text-on-surface-variant max-w-xs">
+        Seu rastreador inteligente de micronutrientes e equilíbrio metabólico
+      </p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="bg-surface-container-lowest rounded-xl p-6 sm:p-8 custom-shadow border border-surface-container/60 flex flex-col gap-5">
+      
+      <!-- Card Tab Switcher -->
+      <div class="flex rounded-full bg-surface-container p-1 text-sm font-semibold text-on-surface-variant">
+        <button id="tab-login" class="flex-1 py-2 rounded-full bg-surface-container-lowest text-primary shadow-sm transition-all" onclick="switchTab('login')">
+          Entrar
+        </button>
+        <button id="tab-register" class="flex-1 py-2 rounded-full text-on-surface-variant hover:text-on-surface transition-all" onclick="switchTab('register')">
+          Criar Conta
+        </button>
+      </div>
+
+      <!-- Feedback / Alert -->
+      <div id="alert-box" class="hidden p-3 rounded-lg text-sm flex items-center gap-2 transition-all"></div>
+
+      <!-- Form: Login -->
+      <form id="login-form" class="flex flex-col gap-4" onsubmit="handleLogin(event)">
+        <div class="flex flex-col gap-1.5">
+          <label for="login-email" class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">E-mail ou Usuário</label>
+          <div class="relative flex items-center">
+            <span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px]">alternate_email</span>
+            <input 
+              id="login-email" 
+              type="email" 
+              required 
+              placeholder="ex: camila@nutribio.com"
+              class="w-full pl-10 pr-4 py-3 rounded-lg bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest outline-none text-sm transition-all"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-center">
+            <label for="login-password" class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Senha</label>
+            <a href="#" onclick="alert('Dica: Use um dos perfis prontos no Acesso Rápido abaixo!'); return false;" class="text-xs text-primary font-medium hover:underline">Esqueceu?</a>
+          </div>
+          <div class="relative flex items-center">
+            <span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px]">lock</span>
+            <input 
+              id="login-password" 
+              type="password" 
+              required 
+              placeholder="••••••••"
+              class="w-full pl-10 pr-11 py-3 rounded-lg bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest outline-none text-sm transition-all"
+            />
+            <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute right-3 text-on-surface-variant hover:text-on-surface p-1">
+              <span class="material-symbols-outlined text-[20px]">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="remember-me" checked class="accent-primary rounded w-4 h-4 cursor-pointer"/>
+          <label for="remember-me" class="text-xs text-on-surface-variant cursor-pointer select-none">Manter sessão ativa</label>
+        </div>
+
+        <button 
+          type="submit" 
+          id="btn-submit"
+          class="w-full mt-1 py-3 px-4 rounded-full bg-primary hover:bg-primary-container text-on-primary font-semibold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
+        >
+          <span>Entrar no Dashboard</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </button>
+      </form>
+
+      <!-- Form: Register -->
+      <form id="register-form" class="hidden flex flex-col gap-3.5" onsubmit="handleRegister(event)">
+        <div class="flex flex-col gap-1">
+          <label for="reg-name" class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Nome Completo</label>
+          <input 
+            id="reg-name" 
+            type="text" 
+            required 
+            placeholder="Seu nome"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest outline-none text-sm transition-all"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="reg-email" class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">E-mail</label>
+          <input 
+            id="reg-email" 
+            type="email" 
+            required 
+            placeholder="seu.email@exemplo.com"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest outline-none text-sm transition-all"
+          />
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div class="flex flex-col gap-1">
+            <label for="reg-cal" class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Meta Calórica</label>
+            <input 
+              id="reg-cal" 
+              type="number" 
+              value="2000" 
+              min="1000" 
+              max="5000" 
+              required
+              class="w-full px-3 py-2.5 rounded-lg bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest outline-none text-sm transition-all"
+            />
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="reg-focus" class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Foco Principal</label>
+            <select id="reg-focus" class="w-full px-2.5 py-2.5 rounded-lg bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest outline-none text-sm transition-all">
+              <option value="Equilíbrio & Saúde">Equilíbrio</option>
+              <option value="Hipertrofia">Hipertrofia</option>
+              <option value="Perda de Gordura">Emagrecimento</option>
+              <option value="Longevidade">Longevidade</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="reg-password" class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Senha</label>
+          <input 
+            id="reg-password" 
+            type="password" 
+            required 
+            placeholder="Mínimo 6 caracteres"
+            minlength="4"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest outline-none text-sm transition-all"
+          />
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full mt-2 py-3 px-4 rounded-full bg-secondary hover:bg-secondary-container hover:text-on-secondary-container text-on-secondary font-semibold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
+        >
+          <span>Criar e Navegar</span>
+          <span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Quick Access Demo Users -->
+    <div class="bg-surface-container-lowest/80 backdrop-blur-md rounded-xl p-5 border border-surface-container flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-primary">groups</span>
+          Acesso Rápido (Usuários de Teste)
+        </span>
+        <span class="text-[11px] text-on-surface-variant/80">1 clique para testar</span>
+      </div>
+
+      <div class="flex flex-col gap-2" id="demo-users-list">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-6 text-center text-xs text-on-surface-variant/70 pb-4">
+    NutriBio &bull; Sistema de Rastreio Nutricional &bull; 2026
+  </footer>
+
+  <script>
+    // Initial Seed Users
+    const DEFAULT_USERS = [
+      {
+        id: "u1",
+        name: "Camila Silveira",
+        email: "camila@nutribio.com",
+        password: "senha123",
+        role: "Atleta & Hipertrofia",
+        calorieTarget: 2100,
+        consumedCalories: 1680,
+        waterTarget: 2.5,
+        waterCurrent: 1.8,
+        protein: { current: 118, target: 140 },
+        carbs: { current: 165, target: 220 },
+        fats: { current: 48, target: 65 },
+        avatar: "./assets/profile.jpg"
+      },
+      {
+        id: "u2",
+        name: "Lucas Rocha",
+        email: "lucas@nutribio.com",
+        password: "nutri2026",
+        role: "Corrida & Performance",
+        calorieTarget: 2450,
+        consumedCalories: 2050,
+        waterTarget: 3.0,
+        waterCurrent: 2.2,
+        protein: { current: 135, target: 155 },
+        carbs: { current: 280, target: 330 },
+        fats: { current: 55, target: 70 },
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
+      },
+      {
+        id: "u3",
+        name: "Dra. Beatriz Santos",
+        email: "beatriz@nutribio.com",
+        password: "saude360",
+        role: "Longevidade & Saúde",
+        calorieTarget: 1850,
+        consumedCalories: 1420,
+        waterTarget: 2.2,
+        waterCurrent: 1.9,
+        protein: { current: 95, target: 110 },
+        carbs: { current: 150, target: 190 },
+        fats: { current: 45, target: 55 },
+        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"
+      }
+    ];
+
+    // Load or initialize users in localStorage
+    function getUsers() {
+      const stored = localStorage.getItem('nutribio_users');
+      if (!stored) {
+        localStorage.setItem('nutribio_users', JSON.stringify(DEFAULT_USERS));
+        return DEFAULT_USERS;
+      }
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        return DEFAULT_USERS;
+      }
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem('nutribio_users', JSON.stringify(users));
+    }
+
+    // Render quick access list
+    function renderDemoUsers() {
+      const users = getUsers();
+      const container = document.getElementById('demo-users-list');
+      container.innerHTML = users.map(user => `
+        <button 
+          type="button"
+          onclick="quickLogin('${user.email}')" 
+          class="w-full p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-container/40 flex items-center justify-between text-left transition-all group active:scale-[0.99]"
+        >
+          <div class="flex items-center gap-3 min-w-0">
+            <img src="${user.avatar}" alt="${user.name}" class="w-9 h-9 rounded-full object-cover flex-shrink-0 border border-primary/20" onerror="this.src='./assets/profile.jpg'"/>
+            <div class="flex flex-col min-w-0">
+              <span class="text-xs font-bold text-on-surface group-hover:text-primary transition-colors truncate">${user.name}</span>
+              <span class="text-[11px] text-on-surface-variant truncate">${user.email} &bull; ${user.role}</span>
+            </div>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-on-primary transition-all flex items-center gap-1 flex-shrink-0">
+            Entrar <span class="material-symbols-outlined text-[14px]">login</span>
+          </span>
+        </button>
+      `).join('');
+    }
+
+    // Tab toggle
+    function switchTab(tab) {
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('register-form');
+      const tabLogin = document.getElementById('tab-login');
+      const tabReg = document.getElementById('tab-register');
+      hideAlert();
+
+      if (tab === 'login') {
+        loginForm.classList.remove('hidden');
+        regForm.classList.add('hidden');
+        tabLogin.className = "flex-1 py-2 rounded-full bg-surface-container-lowest text-primary shadow-sm transition-all";
+        tabReg.className = "flex-1 py-2 rounded-full text-on-surface-variant hover:text-on-surface transition-all";
+      } else {
+        loginForm.classList.add('hidden');
+        regForm.classList.remove('hidden');
+        tabReg.className = "flex-1 py-2 rounded-full bg-surface-container-lowest text-primary shadow-sm transition-all";
+        tabLogin.className = "flex-1 py-2 rounded-full text-on-surface-variant hover:text-on-surface transition-all";
+      }
+    }
+
+    // Toggle password
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    // Alerts
+    function showAlert(msg, isError = true) {
+      const alert = document.getElementById('alert-box');
+      alert.className = `p-3 rounded-lg text-xs font-medium flex items-center gap-2 ${
+        isError ? 'bg-error-container text-error' : 'bg-primary-container text-on-primary'
+      }`;
+      alert.innerHTML = `
+        <span class="material-symbols-outlined text-[18px]">${isError ? 'error' : 'check_circle'}</span>
+        <span>${msg}</span>
+      `;
+      alert.classList.remove('hidden');
+    }
+
+    function hideAlert() {
+      document.getElementById('alert-box').classList.add('hidden');
+    }
+
+    // Quick login by email
+    function quickLogin(email) {
+      const users = getUsers();
+      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+      if (user) {
+        doLogin(user);
+      }
+    }
+
+    // Handle normal login
+    function handleLogin(e) {
+      e.preventDefault();
+      hideAlert();
+      const email = document.getElementById('login-email').value.trim();
+      const pass = document.getElementById('login-password').value;
+
+      const users = getUsers();
+      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+      if (!user) {
+        showAlert('E-mail não encontrado. Escolha um usuário no Acesso Rápido ou crie uma conta.');
+        return;
+      }
+
+      if (user.password !== pass) {
+        showAlert(`Senha incorreta! Dica da senha deste usuário: "${user.password}"`);
+        return;
+      }
+
+      doLogin(user);
+    }
+
+    // Handle registration
+    function handleRegister(e) {
+      e.preventDefault();
+      hideAlert();
+
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const cal = parseInt(document.getElementById('reg-cal').value) || 2000;
+      const role = document.getElementById('reg-focus').value;
+      const pass = document.getElementById('reg-password').value;
+
+      const users = getUsers();
+      if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+        showAlert('Este e-mail já está cadastrado. Faça login!');
+        return;
+      }
+
+      const newUser = {
+        id: "u_" + Date.now(),
+        name: name,
+        email: email,
+        password: pass,
+        role: role,
+        calorieTarget: cal,
+        consumedCalories: Math.round(cal * 0.6),
+        waterTarget: 2.5,
+        waterCurrent: 1.5,
+        protein: { current: 80, target: 130 },
+        carbs: { current: 140, target: 200 },
+        fats: { current: 40, target: 60 },
+        avatar: "./assets/profile.jpg"
+      };
+
+      users.push(newUser);
+      saveUsers(users);
+      renderDemoUsers();
+      showAlert('Conta criada com sucesso! Redirecionando...', false);
+
+      setTimeout(() => {
+        doLogin(newUser);
+      }, 700);
+    }
+
+    // Execute login and redirect
+    function doLogin(user) {
+      localStorage.setItem('nutribio_active_session', JSON.stringify(user));
+      showAlert(`Bem-vindo(a), ${user.name}! Acessando dashboard...`, false);
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 500);
+    }
+
+    // Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDemoUsers();
+      // Pre-fill with first demo user for convenience
+      const users = getUsers();
+      if (users.length > 0) {
+        document.getElementById('login-email').value = users[0].email;
+        document.getElementById('login-password').value = users[0].password;
+      }
+    });
+  </script>
+</body>
+</html>
