@@ -66,6 +66,7 @@
 - [x] **[NB-002] [Full-Stack & UX/UI] Tela de Login & Gestão de Sessão:** [login.html](file:///c:/Users/dayan/OneDrive/Documentos/Área%20de%20Trabalho/Projetos%20Copiloto/login.html) com acesso rápido, 3 usuários teste e cadastro.
 - [x] **[NB-003] [Frontend & UX/UI] Dashboard Diário Responsivo:** [index.html](file:///c:/Users/dayan/OneDrive/Documentos/Área%20de%20Trabalho/Projetos%20Copiloto/index.html) com anel de calorias SVG animado, macros e rastreador de hidratação (+250ml).
 - [x] **[NB-004] [Frontend & UX/UI] Governança Full-Stack, UX/UI & Kanban:** Estruturação dos arquivos `AGENTS.md`, `.agents/agents/nutribio-po.md` e `BACKLOG.md`.
+- [x] **[NB-005] [DevOps & Git] Repositório Criado e Código Versionado no GitHub:** Repositório `dayanel/nutribio` criado com upload de todos os arquivos de layout, assets e regras.
 
 ---
 
